@@ -2,13 +2,35 @@ import React, {Component} from 'react';
 import { Provider } from 'react-redux';
 import { store } from './redux';
 import Home from './home'
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text } from 'native-base';
 
 export default class App extends React.Component {
-  render() {
+    async componentWillMount() {
+        await Expo.Font.loadAsync({
+            'Roboto': require('native-base/Fonts/Roboto.ttf'),
+            'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
+        });
+    }
+    render() {
     return (
         <Provider store={store}>
-            <Home />
+            <Container>
+                <Header>
+                    <Left>
+                        <Button transparent>
+                            <Icon name='menu' />
+                        </Button>
+                    </Left>
+                    <Body>
+                        <Title>H3</Title>
+                    </Body>
+                    <Right />
+                </Header>
+                <Content>
+                    <Home />
+                </Content>
+            </Container>
         </Provider>
     );
   }
