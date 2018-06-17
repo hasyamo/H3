@@ -3,22 +3,24 @@ import { View} from 'react-native';
 import { connect } from 'react-redux';
 import { gameActions } from '../modules/game';
 import { ScoreBoard } from '../components/score_board';
-import { Container, Header, Title, Left, Icon, Right, Button, Body, Content,Text, Card, CardItem } from "native-base";
+import H3List from '../components/H3List';
+import { Colors } from '../constants';
+import { Container, Header, Title, Left, Icon, Right, Button, Body, Content,Text, Fab } from "native-base";
 
 export class GameList extends Component {
-    onLayout() {
-        console.info('onLayout');
-    }
     render() {
         return (
-            <Container onLayout={this.onLayout}>
+            <Container>
                 <ScoreBoard />
-                <View>
-                    <Text style={{marginTop: 200}}>{this.props.message}</Text>
-                </View>
-                <Button onPress={() => {this.props.onClickButton()} }>
-                    <Text>test2</Text>
-                </Button>
+                <H3List />
+                <Fab
+                    active={true}
+                    containerStyle={{ }}
+                    style={{ backgroundColor: Colors.green }}
+                    position="bottomRight"
+                    onPress={() => {}}>
+                    <Icon type="Feather" name="plus" />
+                </Fab>
             </Container>
         );
     }
@@ -34,7 +36,7 @@ export default connect(
         const dispatch = dispatchProps.dispatch;
         return Object.assign({}, ownProps, stateProps, {
             onClickButton: () => {
-                console.info('hashimot');
+                console.info('debug message');
                 dispatch(gameActions.updateMessage('Hoge'));
             },
         });

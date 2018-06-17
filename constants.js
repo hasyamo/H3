@@ -4,4 +4,7 @@ export const Colors = {
   green: '#00BFA5',
   darkGreen: '#26a69a'
 };
+export const FontSize = {
+  min: 12
+}
 
