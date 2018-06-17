@@ -6,22 +6,12 @@ import { ScoreBoard } from '../components/score_board';
 import H3List from '../components/H3List';
 import { Colors } from '../constants';
 import { Container, Header, Title, Left, Icon, Right, Button, Body, Content,Text, Fab } from "native-base";
-import { Actions } from "react-native-router-flux";
 
-export class GameList extends Component {
+export class EditGame extends Component {
     render() {
         return (
             <Container>
-                <ScoreBoard />
-                <H3List />
-                <Fab
-                    active={true}
-                    containerStyle={{ }}
-                    style={{ backgroundColor: Colors.green }}
-                    position="bottomRight"
-                    onPress={() => {this.props.onAdd()}}>
-                    <Icon type="Feather" name="plus" />
-                </Fab>
+            <Text>hoge</Text>
             </Container>
         );
     }
@@ -36,14 +26,6 @@ export default connect(
     (stateProps, dispatchProps, ownProps)  => {
         const dispatch = dispatchProps.dispatch;
         return Object.assign({}, ownProps, stateProps, {
-            onClickButton: () => {
-                console.info('debug message');
-                dispatch(gameActions.updateMessage('Hoge'));
-            },
-            onAdd: () => {
-                console.info('ADD');
-                Actions.editGame();
-            }
         });
     }
-)(GameList);
+)(EditGame);

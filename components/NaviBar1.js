@@ -12,7 +12,7 @@ const styles = {
         fontSize: 24
     }
 };
-export default class NaviBar extends Component {
+export default class NaviBar1 extends Component {
     render() {
         return (
             <Header>
