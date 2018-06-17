@@ -1,28 +1,40 @@
 import React, {Component} from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Container, Header, Title, Left, Icon, Right, Button, Body, Content,Text, Card, CardItem } from "native-base";
+import { connect } from 'react-redux';
+import { StyleSheet, View, TouchableHighlight  } from 'react-native';
+import { Container, Header, Title, Left, Icon, Right, Button, Body, Content,Text} from "native-base";
 import { Colors } from '../constants'
 import { Actions } from "react-native-router-flux";
+import { DatePicker } from './H3DatePicker'
+
+import moment from 'moment';
+var ja = require('moment/locale/ja'); 
+moment.updateLocale('ja', ja);
 
 const styles = {
+    root: {
+        backgroundColor: Colors.green,
+    },
     title: {
-        color: Colors.green,
+        color: Colors.white,
     },
     menu: {
-        color: Colors.green,
+        color: Colors.white,
         fontSize: 27
     },
     menuText: {
-        color: Colors.green,
+        color: Colors.white,
         marginBottom: 4,
         marginLeft: 4,
         fontSize: 16
+    },
+    datePickerText: {
+        color: Colors.white,
     }
 };
-export default class NaviBar2 extends Component {
+class NaviBar2 extends Component {
     render() {
         return (
-            <Header>
+            <Header style={styles.root} >
                 <Left>
                     <Button transparent
                         onPress={() => { Actions.pop() }}
@@ -32,11 +44,42 @@ export default class NaviBar2 extends Component {
                     </Button>
                 </Left>
                 <Body>
-                    <Title style={styles.title} >{this.props.title}</Title>
+                    <DatePicker
+                        defaultDate={moment(this.props.game.game.editDate).toDate()}
+                        locale={"ja"}
+                        timeZoneOffsetInMinutes={undefined}
+                        modalTransparent={true}
+                        animationType={"slide"}
+                        androidMode={"default"}
+                        format="M月D日 HH:mm"
+                        textStyle={styles.datePickerText}
+                        placeHolderTextStyle={styles.datePickerText}
+                        mode="datetime"
+                        placeHolderText={moment(this.props.game.game.editDate).format("M月D日 HH:mm")}
+                    />
                 </Body>
-                <Right />
+                <Right>
+                    <Button transparent
+                        onPress={() => { Actions.pop() }}
+                    >
+                        <Text style={styles.menuText}>Save</Text>
+                    </Button>
+                </Right>
+
             </Header>
         );
     }
 }
 
+export default connect(
+    // mapStateToProps
+    state => ({...state}),
+    // mapDispatchToProps
+    (dispatch) => ({ dispatch }),
+    // mergeProps
+    (stateProps, dispatchProps, ownProps)  => {
+        const dispatch = dispatchProps.dispatch;
+        return Object.assign({}, ownProps, stateProps, {
+        });
+    }
+)(NaviBar2);

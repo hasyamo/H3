@@ -37,11 +37,10 @@ export default connect(
         const dispatch = dispatchProps.dispatch;
         return Object.assign({}, ownProps, stateProps, {
             onClickButton: () => {
-                console.info('debug message');
                 dispatch(gameActions.updateMessage('Hoge'));
             },
             onAdd: () => {
-                console.info('ADD');
+                dispatch(gameActions.newGame());
                 Actions.editGame();
             }
         });
