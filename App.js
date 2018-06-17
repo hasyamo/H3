@@ -1,9 +1,15 @@
 import React, {Component} from 'react';
 import { Provider } from 'react-redux';
-import { store } from './redux';
-import Home from './home'
-import { StyleSheet, View } from 'react-native';
-import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text } from 'native-base';
+import {createStore, applyMiddleware} from 'redux';
+
+import rootReducer from './modules/index.js';
+import AppNavigator from './AppNavigator.js';
+
+let middlewares = [];
+const store = createStore(
+    rootReducer,
+    applyMiddleware(...middlewares),
+);
 
 export default class App extends React.Component {
     async componentWillMount() {
@@ -13,34 +19,11 @@ export default class App extends React.Component {
         });
     }
     render() {
-    return (
-        <Provider store={store}>
-            <Container>
-                <Header>
-                    <Left>
-                        <Button transparent>
-                            <Icon name='menu' />
-                        </Button>
-                    </Left>
-                    <Body>
-                        <Title>H3</Title>
-                    </Body>
-                    <Right />
-                </Header>
-                <Content>
-                    <Home />
-                </Content>
-            </Container>
-        </Provider>
-    );
+        return (
+            <Provider store={store}>
+                <AppNavigator />
+            </Provider>
+        );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
